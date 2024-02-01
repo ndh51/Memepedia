@@ -16,6 +16,10 @@ class Tag
     #[ORM\Column(length: 255)]
     private ?string $libTag = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Tags')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Meme $meme = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +33,18 @@ class Tag
     public function setLibTag(string $libTag): static
     {
         $this->libTag = $libTag;
+
+        return $this;
+    }
+
+    public function getMeme(): ?Meme
+    {
+        return $this->meme;
+    }
+
+    public function setMeme(?Meme $meme): static
+    {
+        $this->meme = $meme;
 
         return $this;
     }
