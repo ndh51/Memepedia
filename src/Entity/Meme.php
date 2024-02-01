@@ -17,6 +17,9 @@ class Meme
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $descr = null;
 
+    #[ORM\OneToOne(mappedBy: 'meme', cascade: ['persist', 'remove'])]
+    private ?Image $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +33,23 @@ class Meme
     public function setDescr(?string $descr): static
     {
         $this->descr = $descr;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(Image $image): static
+    {
+        // set the owning side of the relation if necessary
+        if ($image->getMeme() !== $this) {
+            $image->setMeme($this);
+        }
+
+        $this->image = $image;
 
         return $this;
     }
