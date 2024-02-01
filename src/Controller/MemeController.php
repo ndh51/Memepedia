@@ -19,7 +19,7 @@ class MemeController extends AbstractController
     }
 
     #[Route('/meme/{id}', name: 'app_meme_show', requirements: ['id' => '\d+'])]
-    public function show(#[MapEntity(expr: 'repository.findWithCategory(id)')] meme $meme): Response
+    public function show(#[MapEntity(expr: 'repository.findWithId(id)')] meme $meme): Response
     {
         return $this->render('meme/show.html.twig', ['meme' => $meme]);
     }
